@@ -1,6 +1,8 @@
 package hack.duke.compliments;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -24,44 +27,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		TextView compliment1 = (TextView) findViewById(R.id.compliment1);
 		TextView compliment2 = (TextView) findViewById(R.id.compliment2);
 		TextView compliment3 = (TextView) findViewById(R.id.compliment3);
-		try {
-			String[] complimentChoices = new String[3];
-			String json = "";
 
-			URL url = new URL("http://140db729.ngrok.com/Compliments/sqlPhp.php");
-			URLConnection conn = url.openConnection();
-
-			BufferedReader response = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line;
-			ArrayList<String> compliments = new ArrayList<String>();
-			while ((line = response.readLine()) != null) {
-				compliments.add(line);
-			}
-			ArrayList<Integer> used = new ArrayList<Integer>();
-			ArrayList<String> possibleCompliments = new ArrayList<String>();
-			for (int i =0; i < 3; i++) {
-				int rand = (int)(Math.random()*compliments.size());
-				if (!used.contains(rand)) {
-					complimentChoices[i] = compliments.get(rand);
-					used.add(rand);
-				}
-				else {
-					i--;
-				}
-			}
-
-			compliment1.setText(complimentChoices[0], TextView.BufferType.NORMAL);
-			compliment2.setText(complimentChoices[1], TextView.BufferType.NORMAL);
-			compliment3.setText(complimentChoices[2], TextView.BufferType.NORMAL);
-			compliment1.setOnClickListener(this);
-			compliment2.setOnClickListener(this);
-			compliment3.setOnClickListener(this);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		(new LoadComplimentsTask()).execute("","",null);
+		compliment1.setOnClickListener(this);
+		compliment2.setOnClickListener(this);
+		compliment3.setOnClickListener(this);
 
 	}
+
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,5 +57,83 @@ public class MainActivity extends Activity implements OnClickListener {
 		// Log.e("n", inputName.getText()+"."+ inputEmail.getText());
 
 		startActivity(nextScreen);
+	}
+
+	public class LoadComplimentsTask extends AsyncTask<String, String, String[]> {
+
+		@Override
+		protected void onPreExecute() {
+
+		}
+
+		@Override
+		protected String[] doInBackground(String... params) {
+
+			String[] complimentChoices = new String[3];
+
+			URL url = null;
+			URLConnection conn = null;
+			try {
+				url = new URL("http://140db729.ngrok.com/Compliments/sqlPhp.php");
+				conn = url.openConnection();
+			} catch (Exception e1) {
+				complimentChoices[0] = "ErrorURL";
+				return complimentChoices;
+			}
+
+
+			String line;
+			ArrayList<String> compliments = new ArrayList<String>();
+			BufferedReader response = null;
+			InputStreamReader reader = null;
+  
+
+			try {
+				InputStream i = conn.getInputStream();
+				reader = new InputStreamReader(i);
+			} catch (IOException e) {
+				complimentChoices[0] = "ErrorIn";
+				return complimentChoices;
+			} 
+
+
+
+			response = new BufferedReader(reader);
+
+			try {
+
+				String l = response.readLine().replace('[', ' ');
+				l = l.replace(']', ' ');
+				String[] linesSeparated = l.split(",");
+				ArrayList<Integer> used = new ArrayList<Integer>();
+				for (int i = 0; i < 3; i++) {
+					int rand = (int)(Math.random()*linesSeparated.length);
+					if (!used.contains(rand)) {
+						complimentChoices[i] = linesSeparated[rand];
+						used.add(rand);
+					}
+					else 
+						i--;
+				}
+			}
+			catch (Exception e1) {
+				complimentChoices[0] = "Error";
+				return complimentChoices;
+			}
+			return complimentChoices;
+
+		}
+
+
+		public void onPostExecute(String[] complimentChoices) {
+			TextView compliment1 = (TextView) findViewById(R.id.compliment1);
+			TextView compliment2 = (TextView) findViewById(R.id.compliment2);
+			TextView compliment3 = (TextView) findViewById(R.id.compliment3);
+
+			compliment1.setText(complimentChoices[0], TextView.BufferType.NORMAL);
+			compliment2.setText(complimentChoices[1], TextView.BufferType.NORMAL);
+			compliment3.setText(complimentChoices[2], TextView.BufferType.NORMAL);
+
+		}
 	}
 }
