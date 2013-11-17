@@ -148,7 +148,7 @@ public class ValidateActivity extends Activity {
 			compliment1.setText(complimentChoices[0], TextView.BufferType.NORMAL);
 			compliment2.setText(complimentChoices[1], TextView.BufferType.NORMAL);
 			compliment3.setText(complimentChoices[2], TextView.BufferType.NORMAL);
-
+  
 		}
 	}
 
