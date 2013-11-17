@@ -23,8 +23,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="67dp"
-        android:onClick="onClick"
-android:clickable="true"
         android:text="What's your friend's number?"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -36,5 +34,24 @@ android:clickable="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp"
         android:text="Say Hello!" />
+
+    <TextView
+        android:id="@+id/text_legit_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phone_number"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/button_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_validate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:text="Lookup Contacts" />
 
 </RelativeLayout>
