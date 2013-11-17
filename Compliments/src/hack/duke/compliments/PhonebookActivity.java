@@ -28,6 +28,7 @@ public class PhonebookActivity extends Activity implements TextWatcher {
 	ArrayAdapter<String> adapter;
 	private List<String> namenumber = new ArrayList<String>();
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
