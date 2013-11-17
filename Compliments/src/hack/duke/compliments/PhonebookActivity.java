@@ -2,6 +2,8 @@ package hack.duke.compliments;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,8 +29,8 @@ public class PhonebookActivity extends Activity implements TextWatcher {
 	String message;
 	ArrayAdapter<String> adapter;
 	private List<String> namenumber = new ArrayList<String>();
+	private Timer timer = new Timer();
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,16 +42,16 @@ public class PhonebookActivity extends Activity implements TextWatcher {
 		contact.addTextChangedListener(this);
 
 		phonebook = (ListView) findViewById(R.id.list_phonebook);
-		phonebook.setOnItemClickListener(new OnItemClickListener(){
+		phonebook.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-			    TextView txt = (TextView) arg1;
-			    String[] content = txt.getText().toString().split(":");
+				TextView txt = (TextView) arg1;
+				String[] content = txt.getText().toString().split(":");
 				String number = PhoneActivity.parseNumber(content[1]);
 				if (number.equals("-1")) {
-					//valid_number.setText("Phone number format not valid");
+					// valid_number.setText("Phone number format not valid");
 				} else {
 					Intent nextScreen = new Intent(getApplicationContext(),
 							ValidateActivity.class);
@@ -64,62 +66,82 @@ public class PhonebookActivity extends Activity implements TextWatcher {
 				}
 			}
 
-			
 		});
 
 	}
 
-	public void afterTextChanged(Editable s) {
-		String name = s.toString();
-		namenumber = new ArrayList<String>();
-		Log.e("n", name);
-		if (name.length() > 0) {
-			Cursor c = getContentResolver().query(
-					ContactsContract.Contacts.CONTENT_URI, null, null, null,
-					null);
-			String contactName, contactTelNumber = "";
-			String contactID;
+	public void afterTextChanged(final Editable s) {
+		timer.cancel();
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						String name = s.toString();
+						namenumber.clear();
+						Log.e("n", name);
+						Cursor c = getContentResolver().query(
+								ContactsContract.Contacts.CONTENT_URI, null,
+								null, null, null);
+						String contactName, contactTelNumber = "";
+						String contactID;
 
-			// You only need to find these indices once
-			int idIndex = c.getColumnIndex(ContactsContract.Contacts._ID);
-			int hasNumberIndex = c
-					.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER);
-			int nameIndex = c
-					.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+						// You only need to find these indices once
+						int idIndex = c
+								.getColumnIndex(ContactsContract.Contacts._ID);
+						int hasNumberIndex = c
+								.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER);
+						int nameIndex = c
+								.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
 
-			// This is simpler than calling getCount() every iteration
-			while (c.moveToNext()) {
-				contactName = c.getString(nameIndex);
-				if (contactName.toLowerCase().contains(name.toLowerCase())) {
-					contactID = c.getString(idIndex);
+						// This is simpler than calling getCount() every
+						// iteration
+						while (c.moveToNext()) {
+							contactName = c.getString(nameIndex);
+							if (contactName.toLowerCase().contains(
+									name.toLowerCase())) {
+								contactID = c.getString(idIndex);
 
-					// If this is an integer ask for an integer
-					if (c.getInt(hasNumberIndex) > 0) {
-						Cursor pCur = getContentResolver()
-								.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-										null,
-										ContactsContract.CommonDataKinds.Phone.CONTACT_ID
-												+ " = ?",
-										new String[] { contactID }, null);
-						while (pCur.moveToNext()) {
-							contactTelNumber = pCur
-									.getString(pCur
-											.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+								// If this is an integer ask for an integer
+								if (c.getInt(hasNumberIndex) > 0) {
+									Cursor pCur = getContentResolver()
+											.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+													null,
+													ContactsContract.CommonDataKinds.Phone.CONTACT_ID
+															+ " = ?",
+													new String[] { contactID },
+													null);
+									if (pCur != null) {
+										while (pCur.moveToNext()) {
+											contactTelNumber = pCur
+													.getString(pCur
+															.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
-							// Store the "name: number" string in our list
-							namenumber.add(contactName + ": "
-									+ contactTelNumber);
+											// Store the "name: number"
+											// string in
+											// our list
+											namenumber.add(contactName + ": "
+													+ contactTelNumber);
+										}
+									}
+								}
+							}
 						}
+
+						// Find the ListView, create the adapter, and bind
+						// them
+						adapter = new ArrayAdapter<String>(
+								PhonebookActivity.this,
+								android.R.layout.simple_list_item_1, namenumber);
+						phonebook.setAdapter(adapter);
+						c.close();
 					}
-				}
+				});
 			}
 
-			// Find the ListView, create the adapter, and bind them
-			adapter = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, namenumber);
-			phonebook.setAdapter(adapter);
-			c.close();
-		}
+		}, 500);
 
 	}
 
