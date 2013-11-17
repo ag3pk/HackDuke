@@ -37,10 +37,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		Intent nextScreen = new Intent(getApplicationContext(),
 				PhoneActivity.class);
-
+		
+		TextView compliment = (TextView) v;
 		// Sending data to another Activity
 		// nextScreen.putExtra("name", inputName.getText().toString());
-		//nextScreen.putExtra("compliment", inputEmail.getText().toString());
+		nextScreen.putExtra("compliment", compliment.getText().toString());
 
 		// Log.e("n", inputName.getText()+"."+ inputEmail.getText());
 

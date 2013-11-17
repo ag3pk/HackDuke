@@ -26,6 +26,11 @@
             android:name="hack.duke.compliments.PhoneActivity"
             android:label="@string/app_name" >
         </activity>
+        
+        <activity
+            android:name="hack.duke.compliments.ValidateActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
