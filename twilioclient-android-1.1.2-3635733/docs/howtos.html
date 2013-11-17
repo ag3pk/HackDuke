@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Twilio Client for Android Examples</title>
+    <link rel="stylesheet" href="../assets/docs-style.css">
+    <link rel="stylesheet" href="../assets/syntaxhighlighter/shCore.css">
+    <link rel="stylesheet" href="../assets/syntaxhighlighter/shThemeDefault.css">
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shCore.js"></script>
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shBrushJava.js"></script>
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shBrushPhp.js"></script>
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shBrushXml.js"></script>
+</head>
+<body>
+
+<div id="header">
+    <div id="header-logo">
+        <img src="../assets/twilio-header-logo.png" alt="Twilio">
+    </div>
+</div>
+
+<div id="content">
+
+<h1 id="twilio-client-for-android-howtos">Twilio Client for Android HowTo's</h1>
+
+<p>We've provided a few complete example apps to give you an idea of what you
+can do with the SDK.</p>
+
+<p>However, each app requires a publicly-accessible web server that Twilio's
+services can contact to set up calls.  Because of this, there are a few things
+you'll need to do to get the apps running.</p>
+
+<h2 id="basicphone">BasicPhone</h2>
+
+<p>BasicPhone is an application that can accept an incoming call from someone
+dialing from a regular phone.  It can also dial out, but you'll only hear a
+pre-recorded message.</p>
+
+<p>Stuff you need to do to get it running:</p>
+
+<ol>
+  <li>Copy the stuff in the <code>server</code> subfolder to a publicly-accessible
+web server.</li>
+  <li>Create a new Twilo <a href="https://www.twilio.com/user/account/apps">Application</a>
+and set the VoiceUrl to the URL on your server where you put
+<code>basic-call.php</code>.</li>
+  <li>In <code>auth.php</code>, replace <code>$accountSid</code> and <code>$authToken</code> with your Twilio
+account credentials, and replace <code>$appSid</code> with the SID for the application
+you created above.</li>
+  <li>Purchase a <a href="https://www.twilio.com/user/account/phone-numbers/incoming">phone number</a>
+(or use the Twilio Sandbox Number) and set the VoiceUrl to the URL on
+your server where you put <code>basic-call.php</code>.</li>
+  <li>In the Andrdoid application itself, open <code>BasicPhone.java</code>, and edit
+the constant <code>AUTH_PHP_SCRIPT</code> to point to your <code>auth.php</code> URL.</li>
+</ol>
+
+<p>After you build an install the app on your Android device, you can call the
+number you purchased (or the Sandbox Number if you used that instead), and
+you'll be connected to BasicPhone!</p>
+
+<h2 id="conferencephone">ConferencePhone</h2>
+
+<p>ConferencePhone lets you create a multi-caller conference call using the
+<a href="http://www.twilio.com/docs/api/twiml/conference"><code>&lt;Conference&gt;</code> TwiML verb</a>.
+You can create a new named conference, join an existing conference, or
+select people to add to the conference, whether they're also using
+ConferencePhone or a regular phone.</p>
+
+<p>Stuff you need to do to get it running:</p>
+
+<ol>
+  <li>Copy the stuff in the <code>server</code> subfolder to a publicly-accessible
+web server.</li>
+  <li>Create a new Twilo <a href="https://www.twilio.com/user/account/apps">Application</a>
+and set the VoiceUrl to the URL on your server where you put
+<code>join-conference.php</code>.</li>
+  <li>In <code>auth.php</code>, replace <code>$accountSid</code> and <code>$authToken</code> with your Twilio
+account credentials, and replace <code>$appSid</code> with the SID for the application
+you created above.</li>
+  <li>In <code>make-call.php</code>, replace <code>$twilioPhoneNumber</code> with a number you've
+<a href="https://www.twilio.com/user/account/phone-numbers/verified">verified</a>
+with Twilio.  Also replace <code>$accountSid</code> and <code>$authToken</code> as before.
+Finally, change <code>$url</code> to point to where your <code>join-conference.php</code> script
+lives on your server.</li>
+  <li>In the Andrdoid application itself, open <code>ConferencePhone.java</code>, and edit
+the constants <code>AUTH_PHP_SCRIPT</code> to point to your <code>auth.php</code> URL, and
+<code>MAKE_CALL_PHP_SCRIPT</code> to point to your <code>make-call.php</code> URL.</li>
+</ol>
+
+<p>Now you can build and install the Android app on your Android device and
+start conferencing!</p>
+</div>
+
+<script type="text/javascript">
+    SyntaxHighlighter.defaults['auto-links'] = false;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['gutter'] = false;
+    SyntaxHighlighter.config.space=' ';
+    SyntaxHighlighter.all();
+</script>
+
+</body>
+</html>

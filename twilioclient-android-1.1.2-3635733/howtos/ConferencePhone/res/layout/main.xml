@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <EditText
+        android:id="@+id/conference_name_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/add_call_button"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="6dp"
+        android:hint="@string/enter_conference_name"
+        android:inputType="textCapWords" />
+
+    <ImageButton
+        android:id="@+id/add_call_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/conference_name_field"
+        android:layout_alignBottom="@+id/conference_name_field"
+        android:layout_alignParentRight="true"
+        android:src="@android:drawable/ic_input_add" />
+    
+    <ImageButton
+        android:id="@+id/dial_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/conference_name_field"
+        android:layout_marginTop="22dp"
+        android:background="#000"
+        android:padding="0dp"
+        android:src="@drawable/dial" />
+
+    <ImageButton
+        android:id="@+id/hangup_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dial_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:background="#000"
+        android:enabled="false"
+        android:padding="0dp"
+        android:src="@drawable/hangup" />
+
+    <EditText
+        android:id="@+id/log_text_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/hangup_button"
+        android:layout_marginTop="16dp"
+        android:editable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="textMultiLine"
+        android:gravity="top" />
+
+</RelativeLayout>
