@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Twilio Client for Android Changes</title>
+    <link rel="stylesheet" href="../assets/docs-style.css">
+    <link rel="stylesheet" href="../assets/syntaxhighlighter/shCore.css">
+    <link rel="stylesheet" href="../assets/syntaxhighlighter/shThemeDefault.css">
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shCore.js"></script>
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shBrushJava.js"></script>
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shBrushPhp.js"></script>
+    <script type="text/javascript" src="../assets/syntaxhighlighter/shBrushXml.js"></script>
+</head>
+<body>
+
+<div id="header">
+    <div id="header-logo">
+        <img src="../assets/twilio-header-logo.png" alt="Twilio">
+    </div>
+</div>
+
+<div id="content">
+
+<h1 id="twilio-client-android-changes">Twilio Client Android Changes</h1>
+
+<h2 id="mar-2013">1.1.2 (21 Mar 2013)</h2>
+
+<h3 id="new-features">New Features</h3>
+
+<p>(none)</p>
+
+<h3 id="bug-fixes">Bug Fixes</h3>
+
+<ul>
+  <li>Fix a RuntimeException when the first <code>Device</code> is created in a thread
+other than the main thread (more accurately, a thread without a
+<code>Looper</code>).</li>
+  <li>Fix a bug where the SDK is unable to make new calls after about 40
+calls have been made.</li>
+</ul>
+
+<h3 id="api-changes">API Changes</h3>
+
+<p>(none)</p>
+
+<h2 id="feb-2013">1.1.1 (07 Feb 2013):</h2>
+
+<h3 id="new-features-1">New Features</h3>
+
+<ul>
+  <li>Experimental support for devices using the x86 and MIPS architectures.</li>
+</ul>
+
+<h3 id="bug-fixes-1">Bug Fixes</h3>
+
+<ul>
+  <li>Blacklist some devices/chipsets from using OpenSL ES.  They seem to
+always error out, claiming that the microphone device is already open
+and can't be opened a second time.  These devices will fall back to
+using JNI AudioTrack audio.</li>
+  <li>Fix an issue where a terminated call might not be cleaned up properly,
+resulting in a <code>RuntimeException</code> thrown from the native code.</li>
+  <li>Fix a memory corruption issue that could cause crashes in the native
+library.</li>
+  <li>Fix a problem where, after a network disconnect/reconnect, the SDK
+is unable to make or receive new calls.</li>
+  <li>Add missing <code>DeviceListener</code> logging in the BasicPhone sample app.</li>
+</ul>
+
+<h3 id="api-changes-1">API Changes</h3>
+
+<p>(none)</p>
+
+<h2 id="sep-2012">1.1.0 (19 Sep 2012)</h2>
+
+<h3 id="new-features-2">New Features</h3>
+
+<ul>
+  <li>Increase keepalive interval to bring down device wakeups and reduce
+idle network usage.</li>
+  <li>Use the Speex wideband codec rather than narrowband, which should
+result in better voice quality at the expense of slightly greater
+in-call network usage.</li>
+  <li>Signalling will now recover after switching between WiFi and mobile
+data (or between different WiFi networks), so if the other party hangs
+up, the mobile device will receive the notification.</li>
+</ul>
+
+<h3 id="bug-fixes-2">Bug Fixes</h3>
+
+<ul>
+  <li>Fix a possible crash when initiating a new call.</li>
+  <li>Fixed a DNS server error when connected to networks that provide IPv6
+DNS server addresses.</li>
+  <li>Fixed a possible reference cycle that could lead to a <code>Device</code> object
+memory leak.</li>
+  <li>Fixed an issue where a <code>Device</code> could receive duplicate incoming call
+notifications after a network disconnect and reconnect.</li>
+  <li>Fixed a case where a connection <code>disconnect()</code> immediately after a
+<code>connect()</code> could sometimes still allow the call to be placed.  In
+some other cases this would result in the connection listener's
+<code>onDisconnected()</code> method being called with an error reported.  This
+is now just reported as a non-error disconnect.</li>
+</ul>
+
+<h3 id="api-changes-2">API Changes</h3>
+
+<p>(none)</p>
+
+<h2 id="may-2012">1.0.0 (15 May 2012)</h2>
+
+<p>Initial release.</p>
+</div>
+
+<script type="text/javascript">
+    SyntaxHighlighter.defaults['auto-links'] = false;
+    SyntaxHighlighter.defaults['toolbar'] = false;
+    SyntaxHighlighter.defaults['gutter'] = false;
+    SyntaxHighlighter.config.space=' ';
+    SyntaxHighlighter.all();
+</script>
+
+</body>
+</html>

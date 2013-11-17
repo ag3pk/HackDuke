@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+    <Button
+      android:id="@+id/make_calls_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:enabled="false"
+      android:text="Make Calls" />
+
+    <EditText
+      android:id="@+id/name_field"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@id/make_calls_button"
+      android:hint="Phone number or client name"
+      android:inputType="text" />
+    
+    <ImageButton 
+      android:id="@+id/add_contact_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@id/name_field"
+      android:layout_below="@id/make_calls_button"
+      android:layout_alignParentRight="true"
+      android:layout_alignBottom="@id/name_field"
+      android:src="@android:drawable/ic_input_add" />
+    
+    <ListView
+      android:id="@+id/participant_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/name_field"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentBottom="true" />
+    
+</RelativeLayout>
