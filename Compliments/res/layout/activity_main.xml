@@ -19,7 +19,7 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClick"
-        android:text="Oops! Compliment couldn&apos;t be generated"
+        android:text="Finding your compliments :)"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClick"
-        android:text="Oops! Compliment couldn&apos;t be generated"
+        android:text="Finding your compliments :)"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="onClick"
-        android:text="Oops! Compliment couldn&apos;t be generated"
+        android:text="Finding your compliments :)"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
