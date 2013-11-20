@@ -24,7 +24,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+  
 		TextView compliment1 = (TextView) findViewById(R.id.compliment1);
 		TextView compliment2 = (TextView) findViewById(R.id.compliment2);
 		TextView compliment3 = (TextView) findViewById(R.id.compliment3);
@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			URL url = null;
 			URLConnection conn = null;
 			try {
-				url = new URL("http://140db729.ngrok.com/Compliments/sqlPhp.php");
+				url = new URL("http://4f1d07e1.ngrok.com/Compliments/sqlPhp.php");
 				conn = url.openConnection();
 			} catch (Exception e1) {
 				complimentChoices[0] = "ErrorURL";

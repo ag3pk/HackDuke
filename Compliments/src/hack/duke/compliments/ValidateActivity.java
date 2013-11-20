@@ -110,7 +110,7 @@ public class ValidateActivity extends Activity {
 
 				// send as http get request
 				URL url = new URL(
-						"http://4f1d07e1.ngrok.com/Compliments/twilio.php?order="
+						"http://6d4f0796.ngrok.com/Compliments/twilio.php?order="
 								+ json);
 				System.out.println(url.toString());
 				URLConnection conn = url.openConnection();
@@ -148,7 +148,7 @@ public class ValidateActivity extends Activity {
 			compliment1.setText(complimentChoices[0], TextView.BufferType.NORMAL);
 			compliment2.setText(complimentChoices[1], TextView.BufferType.NORMAL);
 			compliment3.setText(complimentChoices[2], TextView.BufferType.NORMAL);
-  
+
 		}
 	}
 
